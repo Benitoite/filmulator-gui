@@ -34,8 +34,8 @@ bool imwrite_tiff(matrix<unsigned short> output, string outputfilename,
         cerr << "Can't open file for writing" << endl;
         return 1;
     }	
-    TIFFSetField(out, TIFFTAG_IMAGEWIDTH, xsize);  
-    TIFFSetField(out, TIFFTAG_IMAGELENGTH, ysize);
+    TIFFSetField(out, TIFFTAG_IMAGEWIDTH, (int16) xsize);
+    TIFFSetField(out, TIFFTAG_IMAGELENGTH, (int16) ysize);
     TIFFSetField(out, TIFFTAG_SAMPLESPERPIXEL, 3); //RGB
     TIFFSetField(out, TIFFTAG_BITSPERSAMPLE, 16);
     TIFFSetField(out, TIFFTAG_ORIENTATION, ORIENTATION_TOPLEFT);    // set the origin of the image.
@@ -66,6 +66,21 @@ bool imwrite_tiff(matrix<unsigned short> output, string outputfilename,
     exifData["Exif.Image.Orientation"] = 1;//set all images to unrotated
     exifData["Exif.Image.ImageWidth"] = output.nr();
     exifData["Exif.Image.ImageLength"] = output.nc()/3;
+
+    //Erase the thumbnail. Thanks to Andrea Ferrero, author of PhotoFlow.
+    //It might not help, though.
+    Exiv2::ExifThumb exifThumb(exifData);
+    std::string thumbExt = exifThumb.extension();
+    if (!thumbExt.empty())
+    {
+        std::cout << "imwriteTiff thumbext not empty" << endl;
+        exifThumb.erase();
+    }
+    thumbExt = exifThumb.extension();
+    if (!thumbExt.empty())
+    {
+        std::cout << "imwriteTiff thumbext not empty #2" << endl;
+    }
 
     Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(outputfilename.c_str());
     assert(image.get() != 0);
