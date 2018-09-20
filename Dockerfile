@@ -6,7 +6,6 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install --no-instal
 
 # prepare the environment
 
-RUN locale-gen en-US.UTF-8 
 ENV LANG en-US.UTF-8
 ENV LANGUAGE en-US.UTF-8:en
 ENV LC_ALL en-US.UTF-8
