@@ -1,4 +1,4 @@
-FROM kd6kxr/buildqtsvg:buildqtsvg
+FROM kd6kxr/buildqt
 
 # add the dependencies 
 
