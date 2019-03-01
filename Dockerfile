@@ -4,6 +4,10 @@ FROM kd6kxr/buildqt
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends build-essential locales cmake git curl libcrypto++-dev libexiv2-dev libpq-dev libjpeg-dev libraw-dev liblcms2-dev libsigc++-2.0-dev libtiff5-dev ca-certificates ssl-cert -y
 
+RUN cd ~ && git clone https://github.com/CarVac/librtprocess.git && cd ~/librtprocess && git checkout master
+
+RUN cd ~/librtprocess && mkdir build && cd build && cmake .. && make -j$(nproc --all) && make install
+
 # prepare the environment
 
 ENV LANG en-US.UTF-8
