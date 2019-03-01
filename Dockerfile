@@ -12,7 +12,7 @@ RUN cd ~/librtprocess && mkdir build && cd build && cmake .. && make -j$(nproc -
 
 ENV LANG en-US.UTF-8
 ENV LANGUAGE en-US.UTF-8:en
-ENV LC_ALL en-US.UTF-8
+ENV LC_ALL C.UTF-8
 
 ENV QTDIR /opt/local/Qt
 ENV PATH $QTDIR/bin:$PATH
