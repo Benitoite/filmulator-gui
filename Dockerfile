@@ -2,7 +2,7 @@ FROM kd6kxr/buildqt
 
 # add the dependencies 
 
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends build-essential locales cmake git curl libcrypto++-dev libexiv2-dev libpq-dev libjpeg-dev liblcms2-dev libsigc++-2.0-dev libtiff5-dev ca-certificates ssl-cert -y
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends build-essential autotools locales cmake git curl libcrypto++-dev libexiv2-dev libpq-dev libjpeg-dev liblcms2-dev libsigc++-2.0-dev libtiff5-dev ca-certificates ssl-cert -y
 RUN cd ~ && git clone https://github.com/LibRaw/LibRaw.git libraw && cd ~/libraw && git checkout master
 RUN cd ~/libraw && autoreconf --install && ./configure --disable-examples && make -j$(nproc --all) && make install
 RUN cd ~ && git clone https://github.com/CarVac/librtprocess.git && cd ~/librtprocess && git checkout master
